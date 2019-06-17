@@ -6,8 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch-sass": "sass --watch styles/main.scss:styles/main.css && browser-sync start --server --files",
-    "watch": "browser-sync start --server --files './'"
+    "build": "parcel build index.js"
   },
   "author": "korshunad",
   "license": "MIT",
@@ -15,22 +14,14 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "browser-sync": "^2.26.7",
-    "nodemon": "^1.19.1",
-    "parcel-bundler": "^1.12.3",
-    "sass": "^1.21.0"
+    "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
-    "puppeteer": "^1.17.0",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-slick": "^0.24.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
     "slick-carousel": "^1.8.1"
   }
 }

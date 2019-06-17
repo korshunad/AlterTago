@@ -2,10 +2,8 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import Slider from "react-slick";
 
-
 import axios from 'axios';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
 
 import animatedLogo from "./images/altertago_logo_animated.svg";
 
@@ -19,14 +17,14 @@ class ScriptToCopy extends Component {
   render() {
     const {altTags} = this.props;
     return (
-      <div className="flex flex-column w-100 justify-center items-center pv5 fadeIn">
-      <h2>Saved ALT descriptions</h2>
+      <div className="flex flex-column w-100 justify-center items-center pv4 fadeIn">
+      <h2 className="mt0">Saved ALT descriptions</h2>
       <pre className="tl pa2 w-auto-l w-100 overflow-x-scroll ">{`<script>
-const altTags = [${altTags.map(tag => `\n  {"${tag.imgSrc}": "${tag.descr}"}`)}
+const altTags = [${altTags.map(tag => `\n  {"imgSrc": "${tag.imgSrc}", "descr": "${tag.descr}"}`)}
 ]
 </script>`}</pre>
       <CopyToClipboard text={`<script>
-const altTags = [${altTags.map(tag => `\n  {"${tag.imgSrc}": "${tag.descr}"}`)}
+const altTags = [${altTags.map(tag => `\n  {"imgSrc": "${tag.imgSrc}", "descr": "${tag.descr}"}`)}
 ]
 </script>`}
       onCopy={() => this.setState({copied: true})}>
@@ -36,7 +34,7 @@ const altTags = [${altTags.map(tag => `\n  {"${tag.imgSrc}": "${tag.descr}"}`)}
 
       </CopyToClipboard>
 
-      {this.state.copied ? <p style={{color: 'green'}}>Script is copied to clipboard! Paste it inside the <head></head> tag in your website</p> : null}
+      {this.state.copied ? <p style={{color: 'green'}}>Script is copied to clipboard! Paste it inside the &lt;head&gt; tag in your website</p> : null}
       </div>
     )
   }
@@ -56,7 +54,6 @@ class AltEditor extends Component {
   }
   handleChange(event) {
     this.setState({currentImgLabel: event.target.value});
-    console.log(event.target.value);
 
   }
   handleSave(event) {
@@ -91,11 +88,7 @@ class AltEditor extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       beforeChange: (current, next) => {
-      this.handleSave();
-      const {altTags, activeSlide} = this.state;
-      const currentImageSrc = this.props.images[activeSlide];
-      const currentAltTag = altTags.filter(tag => tag.imgSrc == currentImageSrc);
-      this.setState({ oldSlide: current, activeSlide: next, currentImgLabel: currentAltTag.descr || "" })
+      this.setState({ oldSlide: current, activeSlide: next})
       },
       afterChange: current => this.setState({ activeSlide2: current })
     };
@@ -161,16 +154,7 @@ class AltTagsApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: ["https://meduza.io/image/attachments/images/004/196/253/original/9LlM5o9ZZ-6LnAHM7x19FQ.png",
-      "https://meduza.io/image/attachments/images/004/197/270/mobile/HKZEZ3sU2sCteYV-Q87ugA.png",
-      "https://meduza.io/image/attachments/images/004/196/606/mobile/3ZR8E39jrrU_FRFttQrPYg.jpg",
-      "https://meduza.io/image/attachments/images/004/178/932/original/k0dtmNJL92ti0vkJBYkraw.png",
-      "https://meduza.io/image/attachments/images/004/194/619/mobile/Kr-5Wnh-PFgJR-kF_SpeTA.png",
-      "https://meduza.io/image/attachments/images/004/196/253/original/9LlM5o9ZZ-6LnAHM7x19FQ.png",
-      "https://meduza.io/image/attachments/images/004/169/163/original/E3fORMSSWx03GxpdCOCpVQ.png",
-      "https://meduza.io/image/attachments/images/004/162/798/original/IYvSTF1VfegaUJKoTTgLGQ.png",
-      "https://meduza.io/image/partners/logos/000/000/265/original/__________________.png"
-      ],
+      images:null,
       website: "",
       loading: false
     };
@@ -183,7 +167,6 @@ class AltTagsApp extends Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.website);
     this.setState({loading: true});
     event.preventDefault();
     axios.get('https://alt-image-descriptions.herokuapp.com/get-images', {
@@ -192,8 +175,10 @@ class AltTagsApp extends Component {
       }
     })
     .then(response => {
-      console.log(response.data);
-      this.setState({images: response.data});
+      //temporary fix to remove duplicates
+      this.setState({images: response.data.filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      })});
 
     })
     .catch(function (error) {
