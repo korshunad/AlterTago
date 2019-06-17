@@ -32472,7 +32472,7 @@ var _require = require('./Component'),
 CopyToClipboard.CopyToClipboard = CopyToClipboard;
 module.exports = CopyToClipboard;
 },{"./Component":"node_modules/react-copy-to-clipboard/lib/Component.js"}],"images/altertago_logo_animated.svg":[function(require,module,exports) {
-module.exports = "/altertago_logo_animated.99b41b8b.svg";
+module.exports = "/AlterTago/altertago_logo_animated.99b41b8b.svg";
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
