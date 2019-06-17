@@ -1,0 +1,214 @@
+body {
+  font-family: "Poppins", Sans-Serif;
+  font-size: 14px;
+  font-family: 'Muli', sans-serif;
+  background-color: #F8F8F7;
+}
+
+/* #412234 */
+
+h1, h2, h3, h4, label {
+  font-family: 'Muli', sans-serif;
+  /*  color: #C73E1D; */
+  color: #FF6B6B;
+}
+
+h1 {
+}
+p {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2em;
+  color: #011502;
+}
+
+/* input styling */
+
+.inputWrapper {
+  position: relative;
+}
+
+input, textarea {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.4rem !important;
+  line-height: 1.5 !important;
+  font-family: inherit;
+  background-color: white;
+  padding: 0.35em 0.45em;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: 2px dotted #e25858;
+}
+
+input::placeholder, textarea::placeholder {
+  color: darkgrey;
+}
+
+.inputWrapper span {
+  position: absolute;
+  background-color: #C73E1D;
+  transition: transform 0.5s ease;
+}
+
+.bottom,
+.top {
+  height: 2px;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.left,
+.right {
+  width: 2px;
+  top: 0;
+  bottom: 0;
+  transform: scaleY(0);
+}
+
+.bottom {
+  bottom: 0;
+  transform-origin: bottom right;
+}
+
+input:focus ~ .bottom {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
+
+.right {
+  right: 0;
+  transform-origin: top right;
+}
+
+input:focus ~ .right {
+  transform-origin: bottom right;
+  transform: scaleY(1);
+}
+
+.top {
+  top: 0;
+  transform-origin: top left;
+}
+
+input:focus ~ .top {
+  transform-origin: top right;
+  transform: scaleX(1);
+}
+
+.left {
+  left: 0;
+  transform-origin: bottom left;
+}
+
+input:focus ~ .left {
+  transform-origin: top left;
+  transform: scaleY(1);
+}
+
+/* button styling */
+
+button[type=submit], .copyButton {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  outline: 2px dotted transparent;
+  background-color: #e25858;
+}
+
+button[type=submit]::before, .copyButton::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color:#FF6B6B;
+  transform-origin: center right;
+  transform: scaleX(0);
+  transition: transform 0.25s ease-in-out;
+}
+
+button[type=submit]:hover, .copyButton:hover {
+  cursor: pointer;
+}
+button[type=submit]:focus, .copyButton:focus {
+  outline: 2px dotted #e25858;
+}
+
+button[type=submit]:hover::before, button[type=submit]:focus::before,.copyButton:hover::before, .copyButton:focus::before {
+  transform-origin: center left;
+  transform: scaleX(1);
+}
+
+/* link styling */
+
+a {
+  color: #137d68;
+  text-decoration:none;
+  background-color: #F7FFF7 !important;
+  transition: all .2s ease-in-out;
+  position: relative;
+}
+a:hover {
+  background-color: #FFFFFF !important;
+}
+a:focus {
+  background-color: #f9fff9 !important;
+}
+a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #137d68;
+  transform-origin: bottom right;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+a:hover::before {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
+.innerSlide:focus {
+  outline: 2px dotted #e25858;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+ul.slick-dots {
+  bottom: -50px !important;
+  left: 0 !important;
+}
+pre {
+  background-color: #0A4C3F;
+  color:#F7FFF7;
+}
+.slick-initialized .slick-track {
+  display: flex;
+  align-items: center;
+}
+.break-all {
+  word-break: break-all;
+
+}
