@@ -32536,14 +32536,16 @@ function (_Component) {
 
       var altTags = this.props.altTags;
       return _react.default.createElement("div", {
-        className: "flex flex-column w-100 justify-center items-center pv5 fadeIn"
-      }, _react.default.createElement("h2", null, "Saved ALT descriptions"), _react.default.createElement("pre", {
+        className: "flex flex-column w-100 justify-center items-center pv4 fadeIn"
+      }, _react.default.createElement("h2", {
+        className: "mt0"
+      }, "Saved ALT descriptions"), _react.default.createElement("pre", {
         className: "tl pa2 w-auto-l w-100 overflow-x-scroll "
       }, "<script>\nconst altTags = [".concat(altTags.map(function (tag) {
-        return "\n  {\"".concat(tag.imgSrc, "\": \"").concat(tag.descr, "\"}");
+        return "\n  {\"imgSrc\": \"".concat(tag.imgSrc, "\", \"descr\": \"").concat(tag.descr, "\"}");
       }), "\n]\n</script>")), _react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
         text: "<script>\nconst altTags = [".concat(altTags.map(function (tag) {
-          return "\n  {\"".concat(tag.imgSrc, "\": \"").concat(tag.descr, "\"}");
+          return "\n  {\"imgSrc\": \"".concat(tag.imgSrc, "\", \"descr\": \"").concat(tag.descr, "\"}");
         }), "\n]\n</script>"),
         onCopy: function onCopy() {
           return _this2.setState({
@@ -32556,7 +32558,7 @@ function (_Component) {
         style: {
           color: 'green'
         }
-      }, "Script is copied to clipboard! Paste it inside the ", _react.default.createElement("head", null), " tag in your website") : null);
+      }, "Script is copied to clipboard! Paste it inside the <head> tag in your website") : null);
     }
   }]);
 
@@ -32591,7 +32593,6 @@ function (_Component2) {
       this.setState({
         currentImgLabel: event.target.value
       });
-      console.log(event.target.value);
     }
   }, {
     key: "handleSave",
@@ -32649,20 +32650,9 @@ function (_Component2) {
         slidesToShow: 1,
         slidesToScroll: 1,
         beforeChange: function beforeChange(current, next) {
-          _this4.handleSave();
-
-          var _this4$state = _this4.state,
-              altTags = _this4$state.altTags,
-              activeSlide = _this4$state.activeSlide;
-          var currentImageSrc = _this4.props.images[activeSlide];
-          var currentAltTag = altTags.filter(function (tag) {
-            return tag.imgSrc == currentImageSrc;
-          });
-
           _this4.setState({
             oldSlide: current,
-            activeSlide: next,
-            currentImgLabel: currentAltTag.descr || ""
+            activeSlide: next
           });
         },
         afterChange: function afterChange(current) {
@@ -32755,7 +32745,7 @@ function (_Component3) {
 
     _this5 = _possibleConstructorReturn(this, _getPrototypeOf(AltTagsApp).call(this, props));
     _this5.state = {
-      images: ["https://meduza.io/image/attachments/images/004/196/253/original/9LlM5o9ZZ-6LnAHM7x19FQ.png", "https://meduza.io/image/attachments/images/004/197/270/mobile/HKZEZ3sU2sCteYV-Q87ugA.png", "https://meduza.io/image/attachments/images/004/196/606/mobile/3ZR8E39jrrU_FRFttQrPYg.jpg", "https://meduza.io/image/attachments/images/004/178/932/original/k0dtmNJL92ti0vkJBYkraw.png", "https://meduza.io/image/attachments/images/004/194/619/mobile/Kr-5Wnh-PFgJR-kF_SpeTA.png", "https://meduza.io/image/attachments/images/004/196/253/original/9LlM5o9ZZ-6LnAHM7x19FQ.png", "https://meduza.io/image/attachments/images/004/169/163/original/E3fORMSSWx03GxpdCOCpVQ.png", "https://meduza.io/image/attachments/images/004/162/798/original/IYvSTF1VfegaUJKoTTgLGQ.png", "https://meduza.io/image/partners/logos/000/000/265/original/__________________.png"],
+      images: null,
       website: "",
       loading: false
     };
@@ -32776,7 +32766,6 @@ function (_Component3) {
     value: function handleSubmit(event) {
       var _this6 = this;
 
-      alert('A name was submitted: ' + this.state.website);
       this.setState({
         loading: true
       });
@@ -32787,10 +32776,11 @@ function (_Component3) {
           url: encodeURIComponent(this.state.website)
         }
       }).then(function (response) {
-        console.log(response.data);
-
+        //temporary fix to remove duplicates
         _this6.setState({
-          images: response.data
+          images: response.data.filter(function (value, index, self) {
+            return self.indexOf(value) === index;
+          })
         });
       }).catch(function (error) {
         console.log(error);
@@ -32875,7 +32865,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64281" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
